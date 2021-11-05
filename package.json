@@ -5,6 +5,7 @@
     "private": true,
     "author": "samir.yahiaoui@zenika.com",
     "license": "ISC",
+    "main": "src/main.ts",
     "scripts": {
         "prebuild": "rimraf dist",
         "build": "nest build",

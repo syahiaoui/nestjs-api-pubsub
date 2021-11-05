@@ -1,0 +1,36 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build',
+         '--build-arg',
+         'image_version=${_IMAGE_VERSION}',
+         '-t',
+         'eu.gcr.io/$PROJECT_ID/input-api:${_IMAGE_VERSION}',
+         '.'
+        ]  
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build',
+         '--build-arg',
+         'image_version=latest',
+         '-t',
+         'eu.gcr.io/$PROJECT_ID/input-api:latest',
+         '.'
+        ]  
+substitutions:
+    _IMAGE_VERSION: latest # default value
+
+images: [
+  'eu.gcr.io/${PROJECT_ID}/input-api:${_IMAGE_VERSION}',
+  'eu.gcr.io/${PROJECT_ID}/input-api:latest',
+]
+# - name: "gcr.io/cloud-builders/gcloud"
+#   args: ['run', 'deploy', 'input-api', 
+#         '--image', 'eu.gcr.io/${PROJECT_ID}/input-api:${_IMAGE_VERSION}', 
+#         '--region', 'europe-west1',
+#         '--port', '3000', 
+#         '--cpu', '1',
+#         '--memory', '512Mi',
+#         '--concurrency', '10',
+#         '--platform', 'managed',
+#         '--set-env-vars', 'PUBSUB_TOPIC_INPUT_DATA=projects/ysamir-data-processing-test/topics/input-data',
+#         '--set-env-vars', 'PUBSUB_CLIENT_ID=input-api'
+#         ]

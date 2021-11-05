@@ -2,9 +2,22 @@
 ```bash
  gcloud config set project ysamir-data-processing-test
  gcloud auth application-default login 
+ #[C:\Users\Windows\AppData\Roaming\gcloud\application_default_credentials.json]
  gcloud pubsub topics create input-data --message-retention-duration=604800s
  gcloud pubsub topics delete input-data
- # [C:\Users\Windows\AppData\Roaming\gcloud\application_default_credentials.json]
+
+ #build and deploy
+ gcloud builds submit --config=cloudbuild.yaml  --substitutions=_IMAGE_VERSION="1.0.0" .
+ gcloud run deploy input-api --image 'eu.gcr.io/${PROJECT_ID}/input-api:latest' \ 
+         --region 'europe-west1' \
+        --port '3000' \
+        --cpu 1 \
+        --memory '512Mi' \
+        --concurrency 10 \
+        --platform managed \
+        --set-env-vars 'PUBSUB_TOPIC_INPUT_DATA=projects/ysamir-data-processing-test/topics/input-data' \
+        --set-env-vars 'PUBSUB_CLIENT_ID=input-api 
+
 ```
 ## Installation
 
