@@ -9,7 +9,8 @@ COPY package*.json ./
 
 ENV PORT 3000
 # Install dependencies
-RUN npm install --only=production
+RUN npm i -g @nestjs/cli \
+    && npm i --only=production
 
 # Copy local code to the container image.
 COPY . ./

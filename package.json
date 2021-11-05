@@ -6,6 +6,9 @@
     "author": "samir.yahiaoui@zenika.com",
     "license": "ISC",
     "main": "src/main.ts",
+    "engines": {
+        "node": ">=14.0.0"
+    },
     "scripts": {
         "prebuild": "rimraf dist",
         "build": "nest build",
