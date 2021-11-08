@@ -6,7 +6,7 @@ import { AppConfiguration } from 'src/config/app.configuration';
 
 const pubSubClient = new PubSub({ grpc });
 const config = new AppConfiguration();
-const PUBSUN_RESOURCE_ALREADY_EXISTS_CODE = 6;
+const PUBSUB_RESOURCE_ALREADY_EXISTS_CODE = 6;
 
 export async function createTopic() {
   const pubsubConfig: Record<string, string> = await config.getPubsubConfig();
@@ -20,7 +20,7 @@ export async function createTopic() {
     });
     Logger.log(`[createTopic] - Topic ${topicName} created.`);
   } catch (error) {
-    if (error && error.code === PUBSUN_RESOURCE_ALREADY_EXISTS_CODE) {
+    if (error && error.code === PUBSUB_RESOURCE_ALREADY_EXISTS_CODE) {
       return Logger.log(`[createTopic] - Topic ${topicName} already exists.`);
     }
     throw new InternalServerErrorException({
