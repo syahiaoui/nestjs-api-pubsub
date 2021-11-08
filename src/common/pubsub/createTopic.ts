@@ -8,7 +8,7 @@ const pubSubClient = new PubSub({ grpc });
 const config = new AppConfiguration();
 const PUBSUB_RESOURCE_ALREADY_EXISTS_CODE = 6;
 
-export async function createTopic() {
+export async function createTopic(): Promise<void> {
   const pubsubConfig: Record<string, string> = await config.getPubsubConfig();
   const topicName: string = pubsubConfig.topic;
   try {
@@ -20,11 +20,11 @@ export async function createTopic() {
     });
     Logger.log(`[createTopic] - Topic ${topicName} created.`);
   } catch (error) {
-    if (error && error.code === PUBSUB_RESOURCE_ALREADY_EXISTS_CODE) {
-      return Logger.log(`[createTopic] - Topic ${topicName} already exists.`);
-    }
-    throw new InternalServerErrorException({
-      describe: `Some error occured whene creating the pubsub topic: ${topicName}`,
-    });
+    if (error && error.code === PUBSUB_RESOURCE_ALREADY_EXISTS_CODE)
+      Logger.log(`[createTopic] - Topic ${topicName} already exists.`);
+    else
+      throw new InternalServerErrorException({
+        describe: `Some error occured whene creating the pubsub topic: ${topicName}`,
+      });
   }
 }
