@@ -24,6 +24,7 @@ export async function createTopic(): Promise<void> {
       Logger.log(`[createTopic] - Topic ${topicName} already exists.`);
     else
       throw new InternalServerErrorException({
+        error,
         describe: `Some error occured whene creating the pubsub topic: ${topicName}`,
       });
   }
