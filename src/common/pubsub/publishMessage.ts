@@ -5,7 +5,7 @@ import * as grpc from '@grpc/grpc-js';
 import { OperationEntity } from '../../operations/entities/operation.entity';
 import { AppConfiguration } from '../../config/app.configuration';
 
-const pubSubClient = new PubSub({ grpc });
+export const pubSubClient = new PubSub({ grpc });
 const config = new AppConfiguration();
 
 export async function publishMessageWithCustomAttributes(
