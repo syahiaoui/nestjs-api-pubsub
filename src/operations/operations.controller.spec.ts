@@ -22,8 +22,8 @@ describe('OperationsController', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
   });
-  describe('should return status code 202 for deletion data (ACCEPTED)', () => {
-    it('(DELETE) /operations', async () => {
+  describe('(DELETE) /operations', () => {
+    it('should return status code 202 for deletion data (ACCEPTED)', async () => {
       uuidv4.mockImplementation(() => '63422f55-42df-485e-8150-c4456674d053');
       const response = await request(app.getHttpServer()).delete(
         `${endpoint}/12021_labs`,
@@ -89,6 +89,45 @@ describe('OperationsController', () => {
       expect(response.body).toEqual({
         desciption: `Can't publish message to "pubsub"`,
       });
+    });
+    it('should return status code 400 if received body is empty', async () => {
+      uuidv4.mockImplementation(() => '15809aa8-540c-4a30-a293-f6c9ce9e2dc2');
+      const response = await request(app.getHttpServer())
+        .put(`${endpoint}`)
+        .set('accept', 'application/json')
+        .set('content-type', 'application/json')
+        .type('JSON')
+        .send({});
+      expect(response.statusCode).toEqual(HttpStatus.BAD_REQUEST);
+      expect(response.body).toEqual({
+        message:
+          'Validation failed: Payload must be an object with at least one key',
+        statusCode: 400,
+      });
+    });
+    it('should return status code 400 if received data does not respect the user json schema', async () => {
+      uuidv4.mockImplementation(() => '15809aa8-540c-4a30-a293-f6c9ce9e2dc2');
+      const response = await request(app.getHttpServer())
+        .put(`${endpoint}`)
+        .set('accept', 'application/json')
+        .set('content-type', 'application/json')
+        .type('JSON')
+        .send({
+          firstName: 'zenika',
+          lastName: 'toFail',
+          email: 'xyz@zenika.com',
+          creationDate: '2021-11-04T17:53:04.175Z',
+        });
+      expect(response.statusCode).toEqual(HttpStatus.BAD_REQUEST);
+      expect(response.body).toEqual([
+        {
+          instancePath: '',
+          keyword: 'required',
+          message: "must have required property 'personalNumber'",
+          params: { missingProperty: 'personalNumber' },
+          schemaPath: '#/required',
+        },
+      ]);
     });
   });
 });

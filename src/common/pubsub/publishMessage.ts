@@ -1,3 +1,4 @@
+'use strict';
 import { PubSub, PublishOptions } from '@google-cloud/pubsub';
 import * as grpc from '@grpc/grpc-js';
 
@@ -10,8 +11,11 @@ const config = new AppConfiguration();
 export async function publishMessageWithCustomAttributes(
   data: OperationEntity,
 ): Promise<[string]> {
-  const topicName = (await config.getPubsubConfig()).topic;
-  const publishOptions: PublishOptions = { messageOrdering: true };
+  const pubsubConfig: Record<string, string> = await config.getPubsubConfig();
+  const topicName = pubsubConfig.topic;
+  const publishOptions: PublishOptions = {
+    messageOrdering: Boolean(pubsubConfig.messageOrdering),
+  };
   const message = {
     data: Buffer.from(JSON.stringify(data)),
     orderingKey: data.key,
@@ -19,7 +23,7 @@ export async function publishMessageWithCustomAttributes(
     attributes: {
       eventType: data.operationType,
       topic: topicName,
-      clientId: (await config.getPubsubConfig()).clientId,
+      clientId: pubsubConfig.clientId,
     },
   };
   return pubSubClient.topic(topicName, publishOptions).publishMessage(message);

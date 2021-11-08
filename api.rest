@@ -1,1 +1,14 @@
-GET http://localhost:3000
+DELETE http://localhost:3000/api/operations/123456_LABS
+
+###
+
+PUT http://localhost:3000/api/operations
+
+Content-Type: application/json
+{
+	"personalNumber": 123456,
+	"firstName": "zenika",
+	"lastName": "labs",
+	"email": "xyz@zenika.com",
+	"creationDate": "2021-11-04T17:53:04.175Z"
+}

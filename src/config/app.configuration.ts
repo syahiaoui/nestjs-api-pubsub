@@ -28,6 +28,10 @@ export class AppConfiguration {
     return {
       topic: this.get('PUBSUB_TOPIC_INPUT_DATA'),
       clientId: this.get('PUBSUB_CLIENT_ID'),
+      messageOrdering: this.get('PUBSUB_ENABLE_MESSAGE_ORDERING'),
+      messageRetentionDuration: this.get(
+        'PUBSUB_MESSAGE_RETENTION_DURATION_SECONDS',
+      ),
     };
   }
 }
