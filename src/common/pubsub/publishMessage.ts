@@ -22,6 +22,9 @@ export async function publishMessageWithCustomAttributes(
     messageId: data.processId,
     attributes: {
       eventType: data.operationType,
+      key: data.key,
+      processDate: data.processDate,
+      processId: data.processId,
       topic: topicName,
       clientId: pubsubConfig.clientId,
     },

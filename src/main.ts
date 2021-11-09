@@ -5,14 +5,14 @@ import { INestApplication, Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { AppConfiguration } from './config/app.configuration';
 import { setImmediate } from 'timers/promises';
-import { createTopic } from './common/pubsub/createTopic';
+import { createTopic, createSubscription } from './common/pubsub/createTopic';
 import { pubSubClient } from './common/pubsub/publishMessage';
 
 const onShutdown = (shutdownSleepMs: number, app: INestApplication): void[] => {
   const signalTraps: string[] = ['SIGTERM', 'SIGINT', 'SIGUSR2'];
   const sleep = (ms: number) =>
     new Promise<void>((resolve) => setTimeout(resolve, ms));
-  return signalTraps.map((type) => {
+  return signalTraps.map((type: string) => {
     process.once(type, async () => {
       try {
         Logger.log(

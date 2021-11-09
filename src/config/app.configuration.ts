@@ -27,6 +27,7 @@ export class AppConfiguration {
   public async getPubsubConfig(): Promise<StringMap> {
     return {
       topic: this.get('PUBSUB_TOPIC_INPUT_DATA'),
+      subscription: this.get('PUBSUB_SUBSCRIPTION_INPUT_DATA'),
       clientId: this.get('PUBSUB_CLIENT_ID'),
       messageOrdering: this.get('PUBSUB_ENABLE_MESSAGE_ORDERING'),
       messageRetentionDuration: this.get(
