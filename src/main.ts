@@ -5,7 +5,7 @@ import { INestApplication, Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { AppConfiguration } from './config/app.configuration';
 import { setImmediate } from 'timers/promises';
-import { createTopic, createSubscription } from './common/pubsub/createTopic';
+import { createTopic } from './common/pubsub/createTopic';
 import { pubSubClient } from './common/pubsub/publishMessage';
 
 const onShutdown = (shutdownSleepMs: number, app: INestApplication): void[] => {
