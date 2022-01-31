@@ -25,6 +25,7 @@
         "test:e2e": "jest --config ./test/jest-e2e.json"
     },
     "dependencies": {
+        "@google-cloud/bigquery": "^5.9.2",
         "@google-cloud/pubsub": "^2.18.1",
         "@grpc/grpc-js": "^1.4.2",
         "@nestjs/common": "^8.0.0",
@@ -35,6 +36,7 @@
         "ajv-formats": "^2.1.1",
         "dotenv": "^10.0.0",
         "is-empty": "^1.2.0",
+        "jsonschema-bigquery": "^4.1.0",
         "moment-timezone": "^0.5.33",
         "reflect-metadata": "^0.1.13",
         "rimraf": "^3.0.2",

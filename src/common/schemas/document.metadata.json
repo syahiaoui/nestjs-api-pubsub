@@ -1,0 +1,14 @@
+{
+    "version": "1.0.0",
+    "description": "user schema",
+    "type": "object",
+    "keys": ["personalNumber", "lastName"],
+    "properties": {
+        "key": { "type": "string" },
+        "processDate": { "type": "string", "format": "date-time" },
+        "ingestPubsub": { "type": "string" },
+        "processId": { "type": "string" },
+        "status": { "type": "string" }
+    },
+    "additionalProperties": false
+}

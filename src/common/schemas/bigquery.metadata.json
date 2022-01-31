@@ -1,0 +1,14 @@
+{
+    "version": "1.0.0",
+    "description": "user schema",
+    "type": "object",
+    "keys": ["personalNumber", "lastName"],
+    "properties": {
+        "topic": { "type": "string" },
+        "key": { "type": "string" },
+        "event": { "type": "string" },
+        "publishTime": { "type": "string", "format": "date-time" },
+        "timestamp": { "type": "number" }
+    },
+    "additionalProperties": false
+}
